@@ -55,16 +55,79 @@ class MyDb {
     return ticket;
   }
 
-  // Update ticket by id
-  updateById() {}
+  /**
+   * Get ticket by user
+   * @param {string} user
+   * @returns {Array<Ticket>}
+   */
+  findByUser(user) {
+    const tickets = this.tickets.filter(
+      /**
+       * @param {Ticket} ticket
+       */
+      (ticket) => ticket.username === user
+    );
+    return tickets;
+  }
 
-  // Delete ticket by id
-  deleteById() {}
+  /**
+   * Update ticket by id
+   * @param {string} userId
+   * @param {string} usernam
+   * @param {number} price
+   * @returns {Ticket}
+   */
+  updateById(userId, username, price) {
+    const ticket = this.findById(userId);
 
-  // Draw ticket
-  draw() {}
+    ticket.username = username || ticket.username;
+    ticket.price = price || ticket.price;
+    ticket.updatedAt = new Date();
 
-  //
+    return ticket;
+  }
+
+  /**
+   * Delete ticket by id
+   * @param {string} ticketId
+   * @returns {bolean}
+   */
+  deleteById(ticketId) {
+    const ticket = this.tickets.findIndex(
+      /**
+       * @param {Ticket} ticket
+       */
+      (ticket) => ticket.id === ticketId
+    );
+
+    if (ticket !== -1) {
+      this.tickets.splice(ticket, 1);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Get winner of the ticket
+   * @param {number} winnerCount
+   * @returns {Array<Ticket>}
+   */
+  draw(winnerCount) {
+    let indexes = [];
+    for (let i = 1; i <= winnerCount; i++) {
+      let randomIndex = Math.floor(Math.random() * this.tickets.length);
+
+      while (indexes.includes(randomIndex)) {
+        randomIndex = Math.floor(Math.random() * this.tickets.length);
+      }
+      indexes.push(randomIndex);
+    }
+    const winners = indexes.map((index) => this.tickets[index]);
+    return winners;
+  }
 }
 
 const myDb = new MyDb();
+
+module.exports = myDb;

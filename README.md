@@ -25,3 +25,19 @@ Username
 Price
 Timestamp
 ```
+
+# Routes
+
+```
+[METHOD]    [ROUTE]                 [DESCRIPTION]
+GET         /tickets                Get all tickets
+POST        /tickets/draw           Get winners of ticket
+POST        /tickets/buy            Buy ticket
+POST        /tickets/bulk           Buy bulk tickets
+GET         /tickets/t/:ticketId    Get ticket by id
+PATCH       /tickets/t/:ticketId    Update ticket by id
+DELETE      /tickets/t/:ticketId    Delete ticket by id
+GET         /tickets/u/:username    Get tickets by username
+PATCH       /tickets/u/:username    Update tickets by username
+DELETE      /tickets/u/:username    Delete tickets by username
+```
