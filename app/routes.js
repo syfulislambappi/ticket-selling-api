@@ -1,6 +1,7 @@
+const router = require("express").Router();
 const { healthHandler } = require("./controller");
 
-const router = require("express").Router();
+router.use("/api/v1/tickets", require("../routes/ticket.route"));
 
 router.all("/health", healthHandler);
 
