@@ -136,7 +136,7 @@ class MyDb {
   deleteByUser(username) {
     const deleteTickets = this.findByUser(username);
     for (let i = 1; i <= deleteTickets.length; i++) {}
-    deletetickets.map((ticket) => {
+    deleteTickets.map((ticket) => {
       this.deleteById(ticket.id);
     });
   }

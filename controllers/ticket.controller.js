@@ -69,11 +69,44 @@ exports.updateTicketById = async (req, res, next) => {
   }
 };
 
+exports.updateTicketByUser = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const { price } = req.body;
+    const tickets = myDb.updateByUser(username, price);
+    res
+      .status(201)
+      .json({ message: "Ticket updated successfully", tickets: tickets });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.deleteById = async (req, res, next) => {
   try {
     const { ticketId } = req.params;
     myDb.deleteById(ticketId);
     res.status(202).json({ message: "Ticket deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteByUser = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    myDb.deleteByUser(username);
+    res.status(202).json({ message: "Ticket deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.drawTicket = async (req, res, next) => {
+  try {
+    const { winnerCount } = req.body;
+    const winners = myDb.draw(winnerCount);
+    res.status(200).json({ message: "Lucky winners are:", Winners: winners });
   } catch (error) {
     next(error);
   }
